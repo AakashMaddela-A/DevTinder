@@ -4,7 +4,7 @@
 -push into github
 
 
-<!-- this is using of the methods -->
+
 
 /*
 
@@ -30,7 +30,8 @@ app.use("/",(req,res)=>{
 */
 
 
-<!-- this is post, get, delete -->
+
+
 
 /*
 
@@ -59,7 +60,8 @@ app.use("/test",(req,res)=>{
 */
 
 
-<!--  -->
+
+
 /*
 
 // this will only handle GET call to user
@@ -69,4 +71,349 @@ app.get("/user/:userid",(req,res)=>{
 })
 
 */
+
+
+
+
+
+/* Multiple route handlers and ep-5
+
+
+
+
+
+/*
+// route handler
+
+app.use("/user",(req,res)=>{
+    // route handler
+    console.log("handling the route user!!");
+    res.send("Route handler");
+})
+
+*/
+
+
+
+/*
+// multiple route handlers
+
+app.use("/user",(req,res)=>{
+    // route handler
+    console.log("handling the route user!!");
+    res.send("Route handler 1");
+},
+(req,res)=>{
+    // route handler 2
+    console.log("handling the route user 2 2!!");
+    res.send("Route handler 2");
+});
+
+// prints only route handler 1
+
+*/
+
+
+
+
+/*
+// infinite loop
+
+app.use("/user",(req,res)=>{
+    // route handler
+
+})
+
+*/
+
+
+
+
+/*
+// multiple route handlers
+
+app.use("/user",(req,res)=>{
+    // route handler
+    console.log("handling the route user!!");
+    
+},
+(req,res)=>{
+    // route handler 2
+    console.log("handling the route user 2 2!!");
+    res.send("Route handler 2");
+});
+
+// hangs here because of no response in first one
+
+*/
+
+
+
+
+
+/*
+
+app.use("/user",(req,res,next)=>{
+    // route handler
+    console.log("handling the route user!!");
+    next();
+},
+(req,res)=>{
+    // route handler 2
+    console.log("handling the route user 2 2!!");
+    res.send("Route handler 2");
+});
+
+
+// route handler 2 in postman
+
+*/
+
+
+
+
+/*
+
+app.use("/user",(req,res,next)=>{
+    // route handler
+    console.log("handling the route user!!");
+    res.send("Route handler 1");
+    next();
+},
+(req,res)=>{
+    // route handler 2
+    console.log("handling the route user 2 2!!");
+    res.send("Route handler 2");
+});
+
+// it prints route handler 1 and an error message in console
+
+*/
+
+
+
+
+/*
+
+app.use("/user",(req,res,next)=>{
+    // route handler
+    console.log("handling the route user!!");
+    next();
+    res.send("Route handler 1");
+},
+(req,res)=>{
+    // route handler 2
+    console.log("handling the route user 2 2!!");
+    res.send("Route handler 2");
+});
+
+// prints in postman route handler 2 and console error
+
+
+*/
+
+
+
+
+
+/*
+
+
+const express=require("express");
+
+const app=express();
+
+app.use("/user",(req,res,next)=>{
+    // route handler
+    console.log("handling the route user!!");
+    next();
+    res.send("Route handler 1");
+},
+(req,res)=>{
+    // route handler 2
+    console.log("handling the route user 2 2!!");
+    res.send("Route handler 2");
+});
+
+
+app.listen(3000,()=>{
+    console.log("server started..");
+});
+
+
+*/
+
+
+
+
+/*
+
+app.use("/user",(req,res,next)=>{
+    // route handler
+    console.log("handling the route user!!");
+    next();
+    res.send("Route handler 1");
+},
+(req,res)=>{
+    // route handler 2
+    console.log("handling the route user 2 2!!");
+    res.send("Route handler 2");
+},
+(req,res)=>{
+    // route handler 3
+    console.log("handling the route user 3 !!");
+    res.send("Route handler 3");
+},
+(req,res)=>{
+    // route handler 4
+    console.log("handling the route user 4 4!!");
+    res.send("Route handler 4");
+}
+
+// route handler 2 and an error
+
+
+*/
+
+
+
+
+/*
+
+app.use("/user",(req,res,next)=>{
+    // route handler
+    console.log("handling the route user!!");
+    next();
+},
+(req,res,next)=>{
+    // route handler 2
+    console.log("handling the route user 2 2!!");
+    next();
+},
+(req,res,next)=>{
+    // route handler 3
+    console.log("handling the route user 3 !!");
+    next();
+},
+(req,res,next)=>{
+    // route handler 4
+    console.log("handling the route user 4 4!!");
+    next();
+})
+
+// error on post man CANNOT GET /USER  
+ and expecting the route handler
+
+*/
+
+
+
+
+/*
+
+app.use("/user",(req,res,next)=>{
+    // route handler
+    console.log("handling the route user!!");
+    next();
+    // res.send("Route handler 1");
+},
+(req,res,next)=>{
+    // route handler 2
+    console.log("handling the route user 2 2!!");
+    // res.send("Route handler 2");
+    next();
+},
+(req,res,next)=>{
+    // route handler 3
+    console.log("handling the route user 3 !!");
+    // res.send("Route handler 3");
+    next();
+},
+(req,res)=>{
+    // route handler 4
+    console.log("handling the route user 4 4!!");
+    res.send("Route handler 4");
+})
+
+// on postman route handler 4
+
+*/
+
+
+
+
+
+/*
+
+
+const express=require("express");
+
+const app=express();
+
+app.use("/user",(req,res,next)=>{
+    // route handler
+    console.log("handling the route user!!");
+    next();
+    // res.send("Route handler 1");
+},
+(req,res,next)=>{
+    // route handler 2
+    console.log("handling the route user 2 2!!");
+    // res.send("Route handler 2");
+    next();
+},
+(req,res,next)=>{
+    // route handler 3
+    console.log("handling the route user 3 !!");
+    // res.send("Route handler 3");
+    next();
+},
+(req,res)=>{
+    // route handler 4
+    console.log("handling the route user 4 4!!");
+    res.send("Route handler 4");
+}
+
+
+);
+
+
+app.listen(3000,()=>{
+    console.log("server started..");
+});
+
+
+
+//on postman route handler 4
+
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
