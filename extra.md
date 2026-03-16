@@ -586,6 +586,132 @@ module.exports={adminAuth,userAuth};
 
 /* Error handling */
 
+/*
+
+const express = require("express");
+
+const app = express();
+
+
+app.get("/getUserData",(req,res)=>{
+
+    throw new Error('dvdvd');
+    res.send("user data sent");
+});
+
+// error should be first parameter
+app.use("/",(err,req,res,next)=>{
+    if(err){
+        res.status(500).send("something went wrong");
+    }
+});
+
+app.listen(3000,()=>{
+    console.log("server started..");
+});
+
+*/
+
+
+
+
+
+
+
+
+/*
+
+
+
+const express = require("express");
+
+const app = express();
+
+
+app.get("/getUserData",(req,res)=>{
+    try{
+        throw new Error('dvdvd');
+        res.send("user data sent");
+    }
+    catch(err){
+        res.status(500).send("some went wrong yaar contact ");
+    }
+});
+
+// error should be first parameter
+app.use("/",(err,req,res,next)=>{
+    if(err){
+        res.status(500).send("something went wrong");
+    }
+});
+
+app.listen(3000,()=>{
+    console.log("server started..");
+});
+
+
+
+*/
+
+
+
+--------------------------------------------
+
+
+
+/*  project */
+
+app.js
+
+
+app.post("/signup",(req,res)=>{
+    const userObj={
+        firstName:"Aakash",
+        lastName:"Maddela",
+        emailId:"maddelaaakash4499@gmail.com",
+        password:"Aakash@2004"
+    }
+
+    //creating new instance of the user model
+    const user=new User(userObj);
+})
+
+
+
+------------------------------------------------
+-------------------------------------------------
+
+// storing dummy data into database
+app.post("/signup",async(req,res)=>{
+    const userObj={
+        firstName:"Aakash",
+        lastName:"Maddela",
+        emailId:"maddelaaakash4499@gmail.com",
+        password:"Aakash@2004"
+    }
+
+    //creating new instance of the user model
+    const user=new User(userObj);
+
+    try{
+        await user.save();
+        res.send("User Added Successfully...");
+    }
+    catch(err){
+        res.status(400).send("Error saving the user:", + err.message);
+    }
+})
+
+-------------------------------------------------
+
+
+
+
+
+
+
+
+
 
 
 

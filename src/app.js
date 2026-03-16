@@ -1,24 +1,55 @@
+// first connect to the dabase and then to listen
 const express = require("express");
-
+// conection of database 
+const connectDB=require("./config/database");
 const app = express();
-
-const { adminAuth, userAuth } = require("./middlewares/auth");
-
-app.use("/admin", adminAuth);
+const User=require("./models/user")
 
 
-app.get("/user", userAuth,(req,res)=>{
-    res.send("All data send");
-});
+// storing dummy data into database
+app.post("/signup",async(req,res)=>{
+    const userObj={
+        firstName:"Aakash",
+        lastName:"Maddela",
+        emailId:"maddelaaakash4499@gmail.com",
+        password:"Aakash@2004"
+    }
 
-app.get("/admin/getAllData",(req,res)=>{
-    res.send("All data send");
-});
+    //creating new instance of the user model
+    const user=new User(userObj);
 
-app.get("/admin/deleteUser",(req,res)=>{
-    res.send("Delete a user");
-});
+    try{
+        await user.save();
+        res.send("User Added Successfully...");
+    }
+    catch(err){
+        res.status(400).send("Error saving the user:", + err.message);
+    }
+})
 
-app.listen(3000,()=>{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+connectDB().then(()=>{
+    console.log("database connection successfull");
+    app.listen(3000,()=>{
     console.log("server started..");
 });
+
+}).catch((err)=>{
+    console.err("database cannot be connected")
+})
+
+
+
