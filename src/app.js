@@ -1,22 +1,23 @@
-const express=require("express");
+const express = require("express");
 
-const app=express();
+const app = express();
 
-app.use("/",(req,res,next)=>{
-    next();
-})
+const { adminAuth, userAuth } = require("./middlewares/auth");
 
-app.get("/user",(req,res,next)=>{
-    console.log("handling the route user!!");
-    next();
-});
-app.get("/user",(req,res,next)=>{
-    console.log("handling the route user!!");
-    res.send("2nd route handler");
+app.use("/admin", adminAuth);
+
+
+app.get("/user", userAuth,(req,res)=>{
+    res.send("All data send");
 });
 
+app.get("/admin/getAllData",(req,res)=>{
+    res.send("All data send");
+});
 
-
+app.get("/admin/deleteUser",(req,res)=>{
+    res.send("Delete a user");
+});
 
 app.listen(3000,()=>{
     console.log("server started..");

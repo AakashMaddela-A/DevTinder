@@ -450,6 +450,153 @@ app.listen(3000,()=>{
 
 
 
+/*
+
+const express=require("express");
+
+const app=express();
+
+app.use("/",(req,res,next)=>{
+    next();
+})
+
+app.get("/user",(req,res,next)=>{
+    console.log("handling the route user!!");
+    next();
+});
+app.get("/user",(req,res,next)=>{
+    console.log("handling the route user!!");
+    res.send("2nd route handler");
+});
+
+
+
+
+app.listen(3000,()=>{
+    console.log("server started..");
+});
+
+*/
+
+
+
+/*
+
+const express=require("express");
+
+const app=express();
+
+app.get("/admin/getAllData",(req,res)=>{
+    res.send("all data send")
+})
+
+app.get("/admin/deleteUser",(req,res)=>{
+    res.send("all data send")
+})
+
+
+app.listen(3000,()=>{
+    console.log("server started..");
+});
+
+*/
+
+
+
+
+
+
+/*
+
+app.js
+
+
+const express = require("express");
+
+const app = express();
+
+const { adminAuth, userAuth } = require("./middlewares/auth");
+
+app.use("/admin", adminAuth);
+
+
+app.get("/user", userAuth,(req,res)=>{
+    res.send("All data send");
+});
+
+app.get("/admin/getAllData",(req,res)=>{
+    res.send("All data send");
+});
+
+app.get("/admin/deleteUser",(req,res)=>{
+    res.send("Delete a user");
+});
+
+app.listen(3000,()=>{
+    console.log("server started..");
+});
+
+
+
+
+
+
+
+
+auth.js
+
+
+
+const adminAuth=(req,res,next)=>{
+    // handle auth middleware for all
+    console.log("Admin auth is getting checked");
+    const token="xyz";
+    const isAuthorised= token === "xyz";
+    if(!isAuthorised){
+        res.status(401).send("Unauthorised request");
+    }
+    else{
+        next();
+    }
+};
+
+
+const userAuth=(req,res,next)=>{
+    // handle auth middleware for all
+    console.log("Admin auth is getting checked");
+    const token="xyz";
+    const isAuthorised= token === "xyz";
+    if(!isAuthorised){
+        res.status(401).send("Unauthorised request");
+    }
+    else{
+        next();
+    }
+};
+
+
+
+module.exports={adminAuth,userAuth};
+
+
+
+*/
+
+
+
+/* Error handling */
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
