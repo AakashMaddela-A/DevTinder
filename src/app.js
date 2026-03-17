@@ -1,4 +1,4 @@
-// first connect to the dabase and then to listen
+// first connect to the database and then to listen
 const express = require("express");
 // conection of database 
 const connectDB=require("./config/database");
@@ -6,20 +6,16 @@ const app = express();
 const User=require("./models/user")
 
 
-// storing dummy data into database
-app.post("/signup",async(req,res)=>{
-    const userObj={
-        firstName:"Aakash",
-        lastName:"Maddela",
-        emailId:"maddelaaakash4499@gmail.com",
-        password:"Aakash@2004"
-    }
+app.use(express.json());
 
-    //creating new instance of the user model
-    const user=new User(userObj);
+// storing dummy data into database signUp
+app.post("/signup",async(req,res)=>{
+
+    // creating a new instance of the User model
+    const userObj=new User(req.body);
 
     try{
-        await user.save();
+        await userObj.save();
         res.send("User Added Successfully...");
     }
     catch(err){
@@ -48,7 +44,7 @@ connectDB().then(()=>{
 });
 
 }).catch((err)=>{
-    console.err("database cannot be connected")
+    console.error("database cannot be connected")
 })
 
 

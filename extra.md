@@ -705,6 +705,27 @@ app.post("/signup",async(req,res)=>{
 -------------------------------------------------
 
 
+// dynamic signUp
+
+app.use(express.json());
+
+// storing dummy data into database signUp
+app.post("/signup",async(req,res)=>{
+
+    // creating a new instance of the User model
+    const userObj=new User(req.body);
+
+    try{
+        await userObj.save();
+        res.send("User Added Successfully...");
+    }
+    catch(err){
+        res.status(400).send("Error saving the user:", + err.message);
+    }
+})
+
+------------------------------------------------------
+
 
 
 
