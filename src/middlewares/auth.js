@@ -1,30 +1,38 @@
-const adminAuth=(req,res,next)=>{
-    // handle auth middleware for all
-    console.log("Admin auth is getting checked");
-    const token="xyz";
-    const isAuthorised= token === "xyz";
-    if(!isAuthorised){
-        res.status(401).send("Unauthorised request");
+const jwt=require("jsonwebtoken");
+const User=require("../models/user")
+
+const userAuth= async(req,res,next)=>{
+  
+    // read the token the req cookies
+    try{
+    const{token}=req.cookies;
+
+    if(!token){
+        throw new Error("Token is not valid...")
     }
-    else{
-        next();
+
+    const decoded = await jwt.verify(token,"DEV@Tinder2004");
+
+    const{_id}=decoded;
+
+    const user=await User.findById(_id);
+    if(!user){
+        throw new Error("User not found");
     }
+
+    req.user=user;
+    next();
+    }
+    catch(err){
+        res.status(400).send("ERROR:" +err.message);
+    }
+
+
+
+    // validate the token
+    //find the user
 };
 
 
-const userAuth=(req,res,next)=>{
-    // handle auth middleware for all
-    console.log("Admin auth is getting checked");
-    const token="xyz";
-    const isAuthorised= token === "xyz";
-    if(!isAuthorised){
-        res.status(401).send("Unauthorised request");
-    }
-    else{
-        next();
-    }
-};
 
-
-
-module.exports={adminAuth,userAuth};
+module.exports={userAuth};
