@@ -1,5 +1,6 @@
 
 const mongoose=require("mongoose");
+const validator=require("validator");
 
 const userSchema= new mongoose.Schema({
     firstName:{
@@ -17,10 +18,21 @@ const userSchema= new mongoose.Schema({
         required:true,
         unique:true,
         trim:true,
+        validate(value){
+            if(!validator.isEmail(value)){
+                throw new Error("Invalid email address:" + value)
+            }
+        }
     },
     password:{
         type:String,
         required:true,
+        validate(value){
+            if(!validator.isStrongPassword(value)){
+                throw new Error("Enter a Strong Password:" + value)
+            }
+        }
+
     },
     age:{
         type:Number,
@@ -37,6 +49,11 @@ const userSchema= new mongoose.Schema({
     photoUrl:{
         type:String,
         default:"https://files.reva.ac.in/uploads/faculty_images/6555dd1f7308b1700125983.jpg",
+        validate(value){
+            if(!validator.isURL(value)){
+                throw new Error("Invalid photo URl:" + value)
+            }
+        }
     },
     about:{
         type:String,
