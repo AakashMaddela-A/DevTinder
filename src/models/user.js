@@ -3,23 +3,50 @@ const mongoose=require("mongoose");
 
 const userSchema= new mongoose.Schema({
     firstName:{
-        type:String
+        type:String,
+        required:true,
+        minLength:4,
+        maxLength:25,
     },
     lastName:{
-        type:String
+        type:String,
     },
     emailId:{
-        type:String
+        type:String,
+        lowercase:true,
+        required:true,
+        unique:true,
+        trim:true,
     },
     password:{
-        type:String
+        type:String,
+        required:true,
     },
     age:{
-        type:Number
+        type:Number,
+        min:18,
     },
     gender:{
-        type:String
+        type:String,
+        validate(value){
+            if(!["male","female","others"].includes(value)){
+                throw new Error("Gender Not Valid")
+            }
+        }
     },
+    photoUrl:{
+        type:String,
+        default:"https://files.reva.ac.in/uploads/faculty_images/6555dd1f7308b1700125983.jpg",
+    },
+    about:{
+        type:String,
+        default:"This is default about of the user!",
+    },
+    skills:{
+        type:[String],
+    }
+},{
+    timestamps:true,
 });
 
 
