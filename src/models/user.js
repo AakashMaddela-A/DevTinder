@@ -44,8 +44,14 @@ const userSchema= new mongoose.Schema({
     },
     skills:{
         type:[String],
+        validate(value){
+            if(value.length>6){
+                throw new Error("skills cannot be more than 6");
+            }
+        }
     }
-},{
+},
+{
     timestamps:true,
 });
 

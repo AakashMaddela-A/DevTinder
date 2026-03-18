@@ -29,9 +29,10 @@ app.get("/user",async(req,res)=>{
 
     try{
         const user = await User.findOne({emailId:userEmail});
-        if(user.length===0){
-            res.status(404).send("User not found");
-        }else{
+        if(!user){
+        return res.status(404).send("User not found");
+        }
+        else{
         res.send(user);
         }
     }
@@ -65,11 +66,19 @@ app.delete("/user",async(req,res)=>{
     }
 })
 
-// updation of database
-app.patch("/user", async(req,res)=>{
-    const userId = req.query.userId; 
+// updation of data of user
+app.patch("/user/:userId", async(req,res)=>{
+    const userId = req.params?.userId; 
     const data= req.body;
+
+
     try{
+        const ALLOWED_UPDATES=["photoUrl","about","gender","age","skills"];
+        const isUpdatedAllowed=Object.keys(data).every((k)=>ALLOWED_UPDATES.includes(k));
+        if(!isUpdatedAllowed){
+            throw new Error("Update Not Allowed");
+        }
+
         const user= await User.findByIdAndUpdate(userId, data,{returnDocument:"after",runValidators:true});
         console.log(user);
         res.send("User Updated Successfully..");
