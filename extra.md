@@ -1163,13 +1163,22 @@ app.post("/login",async(req,res)=>{
 ------------------------------------------------
 
 
+pagination ->
 
+/feed?page=1&limit=10  => first users from 1-10 ||  .skip(0) & .limit(10)
 
+/feed?page=2&limit=10  => form 11-20 || .skip(10) & .limit(10)
 
+/feed?page=3&limit=10  => form 21-30 || .skip(20) & .limit(10)
 
+skip = (page-1)*limit;
 
+----------------------------------------------------
+----------------------------------------------------
 
+http://localhost:3000/feed?limit=3
 
+http://localhost:3000/feed?page=1&limit=2
 
 
 
