@@ -81,10 +81,6 @@ requestRouter.post("/request/review/:status/:requestId",userAuth,async(req,res)=
         });
 
 
-        console.log("DB Data:", connectionRequest);
-        console.log("Logged User:", loggedInUser._id);
-
-
 
         if(!connectionRequest){
             return res.status(404).json({message: "Connection request not found"})
